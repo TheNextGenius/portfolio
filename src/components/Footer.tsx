@@ -5,8 +5,10 @@ import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 
 const socialLinks = [
     { name: "GitHub", icon: Github, href: "https://github.com/TheNextGenius", color: "text-purple-400" },
-    { name: "LinkedIn", icon: Linkedin, href: "#", color: "text-blue-400" },
-    { name: "Email", icon: Mail, href: "mailto:jay@example.com", color: "text-green-400" },
+    // TODO: Update with your actual LinkedIn URL
+    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/jayshukla", color: "text-blue-400" },
+    // TODO: Update with your actual email
+    { name: "Email", icon: Mail, href: "mailto:jayshukla@example.com", color: "text-green-400" },
 ];
 
 export default function Footer() {
