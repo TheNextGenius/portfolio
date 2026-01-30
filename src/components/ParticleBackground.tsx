@@ -3,15 +3,16 @@
 import { useEffect, useState } from "react";
 
 export default function ParticleBackground() {
-    const [particles, setParticles] = useState<{ id: number; x: number; y: number; delay: number; duration: number }[]>([]);
+    const [particles, setParticles] = useState<{ id: number; x: number; y: number; delay: number; duration: number; size: number }[]>([]);
 
     useEffect(() => {
-        const newParticles = Array.from({ length: 30 }, (_, i) => ({
+        const newParticles = Array.from({ length: 50 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
             delay: Math.random() * 5,
-            duration: 10 + Math.random() * 10,
+            duration: 8 + Math.random() * 12,
+            size: 2 + Math.random() * 4, // Larger particles (2-6px)
         }));
         setParticles(newParticles);
     }, []);
@@ -21,13 +22,15 @@ export default function ParticleBackground() {
             {particles.map((particle) => (
                 <div
                     key={particle.id}
-                    className="absolute w-1 h-1 bg-system-purple rounded-full opacity-40 animate-float"
+                    className="absolute bg-system-purple rounded-full opacity-70 animate-float"
                     style={{
                         left: `${particle.x}%`,
                         top: `${particle.y}%`,
+                        width: `${particle.size}px`,
+                        height: `${particle.size}px`,
                         animationDelay: `${particle.delay}s`,
                         animationDuration: `${particle.duration}s`,
-                        boxShadow: "0 0 10px rgba(123, 44, 191, 0.6)",
+                        boxShadow: `0 0 ${particle.size * 4}px rgba(123, 44, 191, 0.9), 0 0 ${particle.size * 8}px rgba(123, 44, 191, 0.5)`,
                     }}
                 />
             ))}
