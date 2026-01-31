@@ -56,10 +56,17 @@ export default function ChaHae3D() {
                     powerPreference: "high-performance"
                 }}
             >
-                <ambientLight intensity={1} />
-                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} castShadow />
-                <pointLight position={[-10, -10, -10]} intensity={1} color="#7b2cbf" />
-                <directionalLight position={[0, 5, 5]} intensity={0.5} color="#ffffff" />
+                {/* Main dynamic lighting */}
+                <ambientLight intensity={1.5} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2.5} castShadow />
+
+                {/* Cinematic Rim Lights (Backlights) for silhouette pop */}
+                <pointLight position={[10, 5, -10]} intensity={20} color="#7b2cbf" />
+                <pointLight position={[-10, 5, -10]} intensity={20} color="#3a86ff" />
+
+                {/* Accent Lights */}
+                <pointLight position={[0, -2, 5]} intensity={2} color="#ffffff" />
+                <directionalLight position={[0, 5, 5]} intensity={1} color="#ffffff" />
 
                 <Suspense fallback={
                     <Html center>
@@ -80,10 +87,10 @@ export default function ChaHae3D() {
 
                     <ContactShadows
                         position={[0, -1.5, 0]}
-                        opacity={0.4}
-                        scale={10}
-                        blur={2}
-                        far={4.5}
+                        opacity={0.6}
+                        scale={12}
+                        blur={2.5}
+                        far={5}
                     />
                 </Suspense>
 
