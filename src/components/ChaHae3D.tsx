@@ -46,8 +46,8 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
         <primitive
             ref={group}
             object={gltf.scene}
-            scale={2}
-            position={[0, -1.5, 0]}
+            scale={1.2}
+            position={[0, -1, 0]}
             rotation={[0, -Math.PI / 4, 0]}
         />
     );
@@ -67,7 +67,7 @@ export default function ChaHae3D() {
         <div className="w-full h-[400px] md:h-[600px] relative pointer-events-auto">
             <Canvas
                 shadows
-                camera={{ position: [0, 0, 5], fov: 45 }}
+                camera={{ position: [0, 0, 5], fov: 50 }}
                 gl={{ antialias: true, alpha: true }}
             >
                 <ambientLight intensity={0.5} />
