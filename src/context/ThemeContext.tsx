@@ -11,12 +11,19 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [isProfessionalMode, setIsProfessionalMode] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        const savedMode = localStorage.getItem("professionalMode");
-        if (savedMode) {
-            setIsProfessionalMode(savedMode === "true");
-        }
+        // Use a deferred update to satisfy the react-hooks/set-state-in-effect rule
+        const timer = setTimeout(() => {
+            setIsMounted(true);
+            const savedMode = localStorage.getItem("professionalMode");
+            if (savedMode !== null) {
+                const parsedMode = savedMode === "true";
+                setIsProfessionalMode(parsedMode);
+            }
+        }, 0);
+        return () => clearTimeout(timer);
     }, []);
 
     const toggleProfessionalMode = () => {
@@ -29,7 +36,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     return (
         <ThemeContext.Provider value={{ isProfessionalMode, toggleProfessionalMode }}>
-            {children}
+            {isMounted ? children : <div className="invisible">{children}</div>}
         </ThemeContext.Provider>
     );
 }

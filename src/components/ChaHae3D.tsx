@@ -10,11 +10,12 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
     const [error, setError] = useState(false);
 
     // Try to load the model, fallback to primitive if it fails
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let gltf: any = null;
     try {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         gltf = useGLTF(modelPath, true);
-    } catch (e) {
+    } catch {
         if (!error) setError(true);
     }
 
@@ -29,7 +30,7 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
 
     if (error || !gltf) {
         return (
-            <mesh ref={group as any} position={[0, -1, 0]}>
+            <mesh ref={group as unknown as React.Ref<THREE.Mesh>} position={[0, -1, 0]}>
                 <cylinderGeometry args={[0.5, 0.7, 2, 32]} />
                 <meshStandardMaterial color="#7b2cbf" emissive="#7b2cbf" emissiveIntensity={0.5} wireframe />
                 <Html position={[0, 1.5, 0]} center>

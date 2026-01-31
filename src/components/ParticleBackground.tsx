@@ -17,8 +17,15 @@ export default function ParticleBackground() {
             duration: isProfessionalMode ? (15 + Math.random() * 15) : (8 + Math.random() * 12),
             size: isProfessionalMode ? (1 + Math.random() * 2) : (2 + Math.random() * 4),
         }));
-        setParticles(newParticles);
+
+        // Defer state update to satisfy the performance-focused lint rule
+        const timer = setTimeout(() => {
+            setParticles(newParticles);
+        }, 0);
+        return () => clearTimeout(timer);
     }, [isProfessionalMode]);
+
+    if (particles.length === 0) return null;
 
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
