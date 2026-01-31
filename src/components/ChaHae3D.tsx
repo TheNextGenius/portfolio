@@ -13,8 +13,8 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
         if (group.current) {
             // Gentle floating animation
             const t = state.clock.getElapsedTime();
-            group.current.position.y = Math.sin(t) * 0.15;
-            group.current.rotation.y = Math.sin(t / 4) * 0.1;
+            group.current.position.y = Math.sin(t) * 0.1;
+            group.current.rotation.y = Math.sin(t / 4) * 0.05;
         }
     });
 
@@ -22,8 +22,8 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
         <primitive
             ref={group}
             object={gltf.scene}
-            scale={3}
-            position={[0, -4.5, 0]}
+            scale={1.2}
+            position={[0, -2, 0]}
             rotation={[0, -Math.PI / 4, 0]}
         />
     );
@@ -49,16 +49,15 @@ export default function ChaHae3D() {
         <div className="w-full h-[400px] md:h-[600px] relative pointer-events-auto">
             <Canvas
                 shadows
-                camera={{ position: [0, 2, 15], fov: 35 }}
+                camera={{ position: [0, 1, 8], fov: 45 }}
                 gl={{
                     antialias: true,
                     alpha: true,
-                    preserveDrawingBuffer: true,
                     powerPreference: "high-performance"
                 }}
             >
-                <ambientLight intensity={0.7} />
-                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />
+                <ambientLight intensity={1} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} castShadow />
                 <pointLight position={[-10, -10, -10]} intensity={1} color="#7b2cbf" />
                 <directionalLight position={[0, 5, 5]} intensity={0.5} color="#ffffff" />
 
@@ -80,7 +79,7 @@ export default function ChaHae3D() {
                     </PresentationControls>
 
                     <ContactShadows
-                        position={[0, -4.5, 0]}
+                        position={[0, -2, 0]}
                         opacity={0.4}
                         scale={10}
                         blur={2}

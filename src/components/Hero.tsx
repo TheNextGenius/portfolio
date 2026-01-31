@@ -50,7 +50,7 @@ export default function Hero() {
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className={`w-full lg:w-1/2 order-2 lg:order-1 transition-opacity duration-700 ${isProfessionalMode ? "opacity-40 grayscale pointer-events-none" : "opacity-100"}`}
+                    className={`w-full lg:w-1/2 order-2 lg:order-1 transition-opacity duration-700 ${isProfessionalMode ? "opacity-40 pointer-events-none" : "opacity-100"}`}
                 >
                     <ChaHae3D />
                 </motion.div>
