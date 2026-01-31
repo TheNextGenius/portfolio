@@ -61,8 +61,8 @@ export default function ChaHae3D() {
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2.5} castShadow />
 
                 {/* Cinematic Rim Lights (Backlights) for silhouette pop */}
-                <pointLight position={[10, 5, -10]} intensity={20} color="#7b2cbf" />
-                <pointLight position={[-10, 5, -10]} intensity={20} color="#3a86ff" />
+                <pointLight position={[10, 5, -10]} intensity={15} color="#7b2cbf" />
+                <pointLight position={[-10, 5, -10]} intensity={15} color="#3a86ff" />
 
                 {/* Accent Lights */}
                 <pointLight position={[0, -2, 5]} intensity={2} color="#ffffff" />

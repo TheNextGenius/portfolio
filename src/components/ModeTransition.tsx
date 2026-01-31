@@ -38,7 +38,7 @@ export default function ModeTransition() {
                                 <feTurbulence
                                     type="fractalNoise"
                                     baseFrequency="0.04"
-                                    numOctaves="4"
+                                    numOctaves="2"
                                     result="noise"
                                 />
                                 <feDisplacementMap
@@ -51,23 +51,24 @@ export default function ModeTransition() {
                         </defs>
                     </svg>
 
-                    {/* Multiple overlapping organic "Shadow Blobs" */}
-                    {[...Array(4)].map((_, i) => (
+                    {/* Multiple overlapping organic "Shadow Blobs" - Reduced count for performance */}
+                    {[...Array(2)].map((_, i) => (
                         <motion.div
                             key={i}
                             className="absolute inset-0 bg-black"
                             style={{
                                 filter: "url(#shadow-surge-filter)",
-                                borderRadius: "40% 60% 30% 70% / 50% 30% 70% 50%"
+                                borderRadius: "40% 60% 30% 70% / 50% 30% 70% 50%",
+                                willChange: "transform, opacity"
                             }}
-                            initial={{ scale: 0, opacity: 0, rotate: i * 45 }}
+                            initial={{ scale: 0, opacity: 0, rotate: i * 90 }}
                             animate={{
                                 scale: phase === "expanding" ? 3.5 : 0,
                                 opacity: phase === "expanding" ? 1 : 0,
-                                rotate: phase === "expanding" ? i * 45 + 90 : i * 45
+                                rotate: phase === "expanding" ? i * 90 + 90 : i * 90
                             }}
                             transition={{
-                                duration: 1.5,
+                                duration: 1.2,
                                 ease: phase === "expanding" ? "circOut" : "circIn",
                                 delay: i * 0.1
                             }}
@@ -83,6 +84,7 @@ export default function ModeTransition() {
                     {/* Central Energy Burst / Flash */}
                     <motion.div
                         className="absolute inset-0 flex items-center justify-center"
+                        style={{ willChange: "opacity" }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: phase === "expanding" ? [0, 1, 0] : 0 }}
                         transition={{ duration: 0.8, times: [0, 0.5, 1], delay: 0.8 }}
@@ -95,6 +97,7 @@ export default function ModeTransition() {
                     {/* Text overlay during transition */}
                     <motion.div
                         className="absolute inset-0 flex items-center justify-center z-10"
+                        style={{ willChange: "transform, opacity" }}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: phase === "expanding" ? 1 : 0, scale: phase === "expanding" ? 1.2 : 0.8 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
