@@ -39,23 +39,21 @@ export default function Hero() {
             }`}>
             {/* Background with gradient instead of broken texture */}
             <div className={`absolute inset-0 z-0 transition-opacity duration-700 ${isProfessionalMode
-                    ? "bg-gradient-to-b from-slate-900 via-blue-900/20 to-slate-950 opacity-100"
-                    : "bg-gradient-to-b from-shadow-black via-shadow-blue/50 to-shadow-black"
+                ? "bg-gradient-to-b from-slate-900 via-blue-900/20 to-slate-950 opacity-100"
+                : "bg-gradient-to-b from-shadow-black via-shadow-blue/50 to-shadow-black"
                 }`} />
             <div className={`absolute inset-0 bg-black/60 z-0 transition-opacity duration-700 ${isProfessionalMode ? "opacity-40" : "opacity-100"}`} />
 
             <div className="z-10 w-full max-w-7xl px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
-                {/* 3D Model Section - Hidden in Pro Mode */}
-                {!isProfessionalMode && (
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="w-full lg:w-1/2 order-2 lg:order-1"
-                    >
-                        <ChaHae3D />
-                    </motion.div>
-                )}
+                {/* 3D Model Section - Always rendered for consistency and faster loading */}
+                <motion.div
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className={`w-full lg:w-1/2 order-2 lg:order-1 transition-opacity duration-700 ${isProfessionalMode ? "opacity-40 grayscale pointer-events-none" : "opacity-100"}`}
+                >
+                    <ChaHae3D />
+                </motion.div>
 
                 {/* Content Section */}
                 <div className={`w-full order-1 lg:order-2 transition-all duration-700 ${isProfessionalMode ? "lg:w-full max-w-3xl mx-auto" : "lg:w-1/2"}`}>
@@ -69,8 +67,8 @@ export default function Hero() {
                                 animate={{ scale: 1 }}
                                 transition={{ delay: 0.5, type: "spring" }}
                                 className={`transition-colors duration-500 ${isProfessionalMode
-                                        ? "text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
-                                        : "text-system-purple drop-shadow-[0_0_15px_rgba(123,44,191,0.8)]"
+                                    ? "text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                                    : "text-system-purple drop-shadow-[0_0_15px_rgba(123,44,191,0.8)]"
                                     }`}
                             >
                                 <h1 className={`text-4xl md:text-6xl font-bold tracking-tighter ${isProfessionalMode ? "font-sans" : ""}`}>
@@ -97,8 +95,8 @@ export default function Hero() {
                                 <button
                                     onClick={() => scrollToSection("stats")}
                                     className={`px-6 py-2 border transition-all duration-300 font-bold tracking-wider rounded shadow-lg ${isProfessionalMode
-                                            ? "bg-blue-600/20 border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white"
-                                            : "bg-system-purple/20 border-system-purple text-system-purple hover:bg-system-purple hover:text-white shadow-[0_0_10px_rgba(123,44,191,0.3)]"
+                                        ? "bg-blue-600/20 border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white"
+                                        : "bg-system-purple/20 border-system-purple text-system-purple hover:bg-system-purple hover:text-white shadow-[0_0_10px_rgba(123,44,191,0.3)]"
                                         }`}
                                 >
                                     {isProfessionalMode ? "VIEW COMPETENCIES" : "ENTER DUNGEON"}
@@ -106,8 +104,8 @@ export default function Hero() {
                                 <button
                                     onClick={() => scrollToSection("quest")}
                                     className={`px-6 py-2 border transition-all duration-300 font-mono text-sm ${isProfessionalMode
-                                            ? "border-slate-600 text-slate-400 hover:bg-slate-800"
-                                            : "border-system-blue text-system-blue hover:bg-system-blue/20"
+                                        ? "border-slate-600 text-slate-400 hover:bg-slate-800"
+                                        : "border-system-blue text-system-blue hover:bg-system-blue/20"
                                         }`}
                                 >
                                     {isProfessionalMode ? "[PROJECTS & EXPERIENCE]" : "[VIEW QUESTS]"}
