@@ -5,6 +5,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface ThemeContextType {
     isProfessionalMode: boolean;
     toggleProfessionalMode: () => void;
+    isTransitioning: boolean;
+    setIsTransitioning: (val: boolean) => void;
+    performThemeSwap: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -12,6 +15,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [isProfessionalMode, setIsProfessionalMode] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     useEffect(() => {
         // Use a deferred update to satisfy the react-hooks/set-state-in-effect rule
@@ -27,6 +31,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const toggleProfessionalMode = () => {
+        setIsTransitioning(true);
+    };
+
+    const performThemeSwap = () => {
         setIsProfessionalMode((prev) => {
             const newMode = !prev;
             localStorage.setItem("professionalMode", String(newMode));
@@ -35,7 +43,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <ThemeContext.Provider value={{ isProfessionalMode, toggleProfessionalMode }}>
+        <ThemeContext.Provider value={{
+            isProfessionalMode,
+            toggleProfessionalMode,
+            isTransitioning,
+            setIsTransitioning,
+            performThemeSwap
+        }}>
             {isMounted ? children : <div className="invisible">{children}</div>}
         </ThemeContext.Provider>
     );

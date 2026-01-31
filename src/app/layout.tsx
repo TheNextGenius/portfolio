@@ -3,6 +3,7 @@ import { Cinzel, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/context/ThemeContext";
+import ModeTransition from "@/components/ModeTransition";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${cinzel.variable} ${robotoMono.variable} antialiased bg-black text-white`}
       >
         <ThemeProvider>
+          <ModeTransition />
           {children}
         </ThemeProvider>
       </body>

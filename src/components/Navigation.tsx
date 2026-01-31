@@ -15,7 +15,7 @@ const navItems = [
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isProfessionalMode, toggleProfessionalMode } = useTheme();
+    const { isProfessionalMode, toggleProfessionalMode, isTransitioning } = useTheme();
 
     const scrollToSection = (href: string) => {
         const element = document.querySelector(href);
@@ -60,6 +60,7 @@ export default function Navigation() {
                     {/* Pro Toggle */}
                     <button
                         onClick={toggleProfessionalMode}
+                        disabled={isTransitioning}
                         className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${isProfessionalMode
                             ? "bg-blue-900/30 border-blue-500 text-blue-400"
                             : "bg-system-purple/10 border-system-purple text-system-purple hover:bg-system-purple/20"
@@ -77,6 +78,7 @@ export default function Navigation() {
                 <div className="flex items-center gap-4 md:hidden">
                     <button
                         onClick={toggleProfessionalMode}
+                        disabled={isTransitioning}
                         className={`p-2 rounded-full border ${isProfessionalMode ? "border-blue-500 text-blue-400" : "border-system-purple text-system-purple"
                             }`}
                     >
