@@ -46,28 +46,36 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
         <primitive
             ref={group}
             object={gltf.scene}
-            scale={0.5}
-            position={[0, -2.5, 0]}
+            scale={1.5}
+            position={[0, -3.5, 0]}
             rotation={[0, -Math.PI / 4, 0]}
         />
     );
 }
 
 export default function ChaHae3D() {
-    const [modelExists, setModelExists] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        // Check if the model exists in public folder
-        fetch("/models/cha-hae-in.glb", { method: "HEAD" })
-            .then(res => setModelExists(res.ok))
-            .catch(() => setModelExists(false));
+        const timer = setTimeout(() => {
+            setIsMounted(true);
+        }, 0);
+        return () => clearTimeout(timer);
     }, []);
+
+    if (!isMounted) {
+        return (
+            <div className="w-full h-[400px] md:h-[600px] flex items-center justify-center font-mono text-system-purple animate-pulse">
+                [INITIALIZING SYSTEM...]
+            </div>
+        );
+    }
 
     return (
         <div className="w-full h-[400px] md:h-[600px] relative pointer-events-auto">
             <Canvas
                 shadows
-                camera={{ position: [0, 0, 10], fov: 50 }}
+                camera={{ position: [0, 0, 12], fov: 50 }}
                 gl={{ antialias: true, alpha: true }}
             >
                 <ambientLight intensity={0.5} />
@@ -103,14 +111,12 @@ export default function ChaHae3D() {
                 <Environment preset="night" />
             </Canvas>
 
-            {/* Overlay info if model is a placeholder */}
-            {!modelExists && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-                    <p className="text-[10px] text-system-blue/50 font-mono uppercase tracking-widest">
-                        Awaiting S-Rank Model Sync
-                    </p>
-                </div>
-            )}
+            {/* Overlay info - removed existence check to simplify initialization */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center pointer-events-none">
+                <p className="text-[10px] text-system-blue/50 font-mono uppercase tracking-widest">
+                    Awaiting S-Rank Model Sync
+                </p>
+            </div>
         </div>
     );
 }
