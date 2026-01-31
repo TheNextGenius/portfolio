@@ -7,17 +7,7 @@ import * as THREE from "three";
 
 function ChaHaeModel({ modelPath }: { modelPath: string }) {
     const group = useRef<THREE.Group>(null);
-    const [error, setError] = useState(false);
-
-    // Try to load the model, fallback to primitive if it fails
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let gltf: any = null;
-    try {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        gltf = useGLTF(modelPath, true);
-    } catch {
-        if (!error) setError(true);
-    }
+    const gltf = useGLTF(modelPath);
 
     useFrame((state) => {
         if (group.current) {
@@ -28,26 +18,12 @@ function ChaHaeModel({ modelPath }: { modelPath: string }) {
         }
     });
 
-    if (error || !gltf) {
-        return (
-            <mesh ref={group as unknown as React.Ref<THREE.Mesh>} position={[0, -1, 0]}>
-                <cylinderGeometry args={[0.5, 0.7, 2, 32]} />
-                <meshStandardMaterial color="#7b2cbf" emissive="#7b2cbf" emissiveIntensity={0.5} wireframe />
-                <Html position={[0, 1.5, 0]} center>
-                    <div className="text-system-blue font-mono text-xs whitespace-nowrap bg-black/80 px-2 py-1 border border-system-blue/30 rounded">
-                        [MODEL_MISSING: CHA_HAE_IN]
-                    </div>
-                </Html>
-            </mesh>
-        );
-    }
-
     return (
         <primitive
             ref={group}
             object={gltf.scene}
-            scale={1.5}
-            position={[0, -3.5, 0]}
+            scale={2.5}
+            position={[0, -4, 0]}
             rotation={[0, -Math.PI / 4, 0]}
         />
     );
@@ -75,8 +51,8 @@ export default function ChaHae3D() {
         <div className="w-full h-[400px] md:h-[600px] relative pointer-events-auto">
             <Canvas
                 shadows
-                camera={{ position: [0, 0, 12], fov: 50 }}
-                gl={{ antialias: true, alpha: true }}
+                camera={{ position: [0, 2, 12], fov: 35 }}
+                gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
             >
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
@@ -100,7 +76,7 @@ export default function ChaHae3D() {
                     </PresentationControls>
 
                     <ContactShadows
-                        position={[0, -2.5, 0]}
+                        position={[0, -4, 0]}
                         opacity={0.4}
                         scale={10}
                         blur={2}
@@ -120,3 +96,5 @@ export default function ChaHae3D() {
         </div>
     );
 }
+
+useGLTF.preload("/models/cha-hae-in.glb");
