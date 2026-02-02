@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Download } from "lucide-react";
 import SystemWindow from "./SystemWindow";
 import ChaHae3D from "./ChaHae3D";
-
+import FogOverlay from "./FogOverlay";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function Hero() {
@@ -37,6 +37,9 @@ export default function Hero() {
     return (
         <section className={`min-h-screen flex items-center justify-center relative overflow-hidden pt-20 transition-colors duration-700 ${isProfessionalMode ? "bg-slate-950" : ""
             }`}>
+            {/* Atmospheric Fog - "Emerging from Shadows" idea */}
+            <FogOverlay />
+
             {/* Background with gradient instead of broken texture */}
             <div className={`absolute inset-0 z-0 transition-opacity duration-700 ${isProfessionalMode
                 ? "bg-gradient-to-b from-slate-900 via-blue-900/20 to-slate-950 opacity-100"
